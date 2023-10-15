@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>jogo</title>
+    <style>
+      body {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         height: 100vh;
+         margin: 0;
+      }
+      #blue-box {
+         background-color: blue;
+         width: 90px;
+         height: 90px;
+         position: absolute;
+         left:0;
+         bottom:1vh;
+      }
+      #tela {
+         border-width: 3px;
+         border-style: solid;
+         background-color: #ff00ff00;
+         width: 95%;
+         height: 450px;
+         position: relative;
+      }
+      #button {
+         padding: 10px;
+         background-color: #ff4a148c;
+      }
+    </style>
+    <script>
+    $(document).ready(function(){
+        var tempo = 15;
+        var tempoElement = document.getElementById("tempo");
+
+        function atualizarTempo() {
+          tempoElement.innerHTML = tempo + " segundos";
+
+          if (tempo > 0) {
+            tempo --;
+            setTimeout(atualizarTempo, 1000); 
+          } else {
+             $("#blue-box").hide(1000);
+             $("#tela").hide(1000);
+             $("p").hide(1000);
+             $("header").hide(1000);
+             $("#score").show(1400);
+            document.getElementById("ponto").innerHTML = "Pontos: " + pontos;
+          }
+         }
+         $("#button").click(function(){
+            $("#tela").show(200);
+            $("#button").hide(10);
+            atualizarTempo();
+         });
+            var pontos = 0;
+            $("#blue-box").click(function(){
+                var telaWidth = $("#tela").width() - $("#blue-box").width();
+                var telaHeight = $("#tela").height() - $("#blue-box").height();
+                
+                var randomLeft = Math.floor(Math.random() * telaWidth);
+                var randomTop = Math.floor(Math.random() * telaHeight);
+                pontos ++;
+ document.getElementById("demo").innerHTML = "Pontos: " + pontos;
+
+                $("#blue-box").animate({
+                    left: randomLeft + "px",
+                    top: randomTop + "px"
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<header align="center">
+   <h1>Faça o maximo de pontos em tempo</h1><br>
+   <h3 align="center" id="tempo">15 segundos</h3>
+   <p id="demo">Pontos: 0</p>
+   
+   <h3 id="button">Jogar</h3>
+
+</header>
+   <div id="tela" style="display: none">
+      <div id="blue-box"></div>
+   </div>
+   <div id="score" style="display: none" >
+      <h2 id="ponto"></h2>
+   </div>
+</body>
+</html>
