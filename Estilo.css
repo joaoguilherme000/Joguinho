@@ -1,0 +1,30 @@
+body {
+    text-align: center;
+    font-size: xx-large;
+}
+
+.player {
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+    position: relative;
+}
+
+#player1 {
+    margin-left: 2%;
+}
+
+#player2 {
+    margin-left: 2%;
+}
+
+#tela {
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    background-color: #ff00ff00;
+    width: 95%;
+    height: 22vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+}

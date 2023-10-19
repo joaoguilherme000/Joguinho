@@ -4,27 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/Estilo.css\">
+    <link rel="stylesheet" href="Estilo.css">
     <title>Corrida ETEC</title>
+    
 </head>
 <body>
     <header>
-       <h1>Faça o maximo de pontos em tempo</h1><br>
-       <h2 id="tutorial2" style="display: none">Tutorial: click no quadrado e ganhe pontos 🟦</h2>
-       <h3 id="tempo">15 segundos</h3>
-       <p id="demo">Pontos: 0</p>
-       
-       <h3 id="button">Jogar</h3>
-    
+        <h1>Jogo de Corrida Simples</h1>
     </header>
-       <h4 id="tutorial">Como jogar?</h4>
-       <div id="tela" style="display: none">
-          <div id="blue-box"></div>
-       </div>
-       <div id="score" style="display: none" >
-          <h1  id="vitoria">Parabéns</h1>
-          <h2 id="ponto"></h2>
-          <h3 id="button2">Jogar de novo</h3>
-       </div>
-    </body>
+
+    <section>
+        <div id="tela">
+            <div class="player" id="player1"></div>
+        </div>
+        
+        <div id="tela">
+            <div class="player" id="player2"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p id="winner"></p>
+    </footer>
+    <script src="Back.js"></script>
+</body>
 </html>
