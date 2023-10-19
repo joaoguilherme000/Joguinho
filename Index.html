@@ -13,19 +13,24 @@
         <h1>Jogo de Corrida Simples</h1>
     </header>
 
-    <section>
-        <div id="tela">
+    <section class="responsive" style="display: none;">
+        <div id="tela1">
             <div class="player" id="player1"></div>
+            <div id="chegada"><img src="chegada.png" alt="linha de chegada"></div>
         </div>
         
-        <div id="tela">
+        <div id="tela2">
             <div class="player" id="player2"></div>
+            <div id="chegada"><img src="chegada.png" alt="linha de chegada"></div>
         </div>
+        <p id="winner"></p>
     </section>
 
-    <footer>
-        <p id="winner"></p>
-    </footer>
+    <div class="inicial">
+        <h2>Seja bem-vindo</h2>
+        <h3 id="button">Jogar</h3>
+        <h4 id="tutorial">Como jogar?</h4>
+    </div>
     <script src="Back.js"></script>
 </body>
 </html>
