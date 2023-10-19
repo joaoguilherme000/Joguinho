@@ -15,6 +15,13 @@
          height: 100vh;
          margin: 0;
       }
+      header {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+      }
       #blue-box {
          background-color: blue;
          width: 90px;
@@ -34,6 +41,7 @@
       }
       #button {
          padding: 10px;
+         width: 90%;
          background-color: #ff4a148c;
          align-self: center;
          cursor: crosshair;
@@ -44,6 +52,13 @@
          align-self: center;
          cursor: pointer;
       }
+      #tutorial {
+            padding: 10px;
+            background-color: #ff4a148c;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+         }
       @media screen and (min-width: 768px) {
          body {
             display: flex;
@@ -64,7 +79,9 @@
             bottom:1vh;
             cursor: crosshair;
          }
-
+         header {
+            align: center;
+         }
          #tela {
             border-width: 3px;
             border-style: solid;
@@ -85,6 +102,13 @@
             background-color: #ff4a148c;
             align-self: center;
             cursor: pointer;
+         }
+         #tutorial {
+            padding: 10px;
+            background-color: #ff4a148c;
+            position: absolute;
+            right: 10px;
+            top: 10px;
          }
       }
     </style>
@@ -120,15 +144,37 @@
             }
           }
          }
-         
+         var show = true;
+         $("#tutorial").click(function(){
+            $("#tutorial2").show(100);
+            if(show){
+               $("#tutorial2").show(100);
+               show = false;
+            }else{
+                $("#tutorial2").hide(100);
+                show = true;
+            }
+            
+         });
          $("#button").click(function(){
             $("#tela").show(200);
             $("#button").hide(10);
+            $("#tutorial").hide(10);
             atualizarTempo();
          });
          $("#button2").click(function () {
-            location.reload(); // Isso recarrega a página
-         });
+              tempo = 16;
+              pontos = 0;
+      document.getElementById("demo").innerHTML = "Pontos: " + pontos;
+              tempoElement.innerHTML = tempo + " segundos";
+              atualizarTempo();
+              
+              $("#blue-box").show(1000);
+              $("#tela").show(1000);
+              $("p").show(1000);
+              $("header").show(1000);
+              $("#score").hide(1400);
+          });
             var pontos = 0;
             $("#blue-box").click(function(){
                 var telaWidth = $("#tela").width() - $("#blue-box").width();
@@ -148,19 +194,21 @@
     </script>
 </head>
 <body>
-<header align="center">
+<header>
    <h1>Faça o maximo de pontos em tempo</h1><br>
+   <h2 id="tutorial2" style="display: none">Tutorial: click no quadrado e ganhe pontos 🟦</h2>
    <h3 align="center" id="tempo">15 segundos</h3>
    <p id="demo">Pontos: 0</p>
    
    <h3 id="button">Jogar</h3>
 
 </header>
+   <h4 id="tutorial">Como jogar?</h4>
    <div id="tela" style="display: none">
       <div id="blue-box"></div>
    </div>
    <div id="score" style="display: none" >
-      <h1 id="vitoria">Parabéns</h1>
+      <h1 align="center" id="vitoria">Parabéns</h1>
       <h2 id="ponto"></h2>
       <h3 id="button2">Jogar de novo</h3>
    </div>
