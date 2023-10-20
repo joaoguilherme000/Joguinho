@@ -1,15 +1,13 @@
 body {
     text-align: center;
     font-size: 3vh;
-    background-color: #fafafa;
     margin: 0px;
-    background-color: #9e6365;
+    background-color: #fff;
 }
 
 .player {
     width: 20vh;
     height: 20vh;
-    background-color: blue;
     position: relative;
 }
 
