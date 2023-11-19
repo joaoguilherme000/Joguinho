@@ -6,211 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>jogo</title>
-    <style>
-      body {
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         flex-direction: column;
-         height: 100vh;
-         margin: 0;
-      }
-      header {
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-         justify-content: center;
-         text-align: center;
-      }
-      #blue-box {
-         background-color: blue;
-         width: 90px;
-         height: 90px;
-         position: absolute;
-         left:0;
-         bottom:1vh;
-         cursor: crosshair;
-      }
-      #tela {
-         border-width: 3px;
-         border-style: solid;
-         background-color: #ff00ff00;
-         width: 95%;
-         height: 450px;
-         position: relative;
-      }
-      #button {
-         padding: 10px;
-         width: 90%;
-         background-color: #ff4a148c;
-         align-self: center;
-         cursor: crosshair;
-      }
-      #button2 {
-         padding: 10px;
-         background-color: #ff4a148c;
-         align-self: center;
-         cursor: pointer;
-      }
-      #tutorial {
-            padding: 10px;
-            background-color: #ff4a148c;
-            position: absolute;
-            right: 10px;
-            top: 10px;
-         }
-      @media screen and (min-width: 768px) {
-         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            margin: 0;
-            font-size: x-large;
-         }
-
-         #blue-box {
-            background-color: blue;
-            width: 90px;
-            height: 90px;
-            position: absolute;
-            left:0;
-            bottom:1vh;
-            cursor: crosshair;
-         }
-         header {
-            align: center;
-         }
-         #tela {
-            border-width: 3px;
-            border-style: solid;
-            background-color: #ff00ff00;
-            width: 95%;
-            height: 450px;
-            position: relative;
-         }
-
-         #button {
-            padding: 10px;
-            background-color: #ff4a148c;
-            align-self: center;
-            cursor: pointer;
-         }
-         #button2 {
-            padding: 10px;
-            background-color: #ff4a148c;
-            align-self: center;
-            cursor: pointer;
-         }
-         #tutorial {
-            padding: 10px;
-            background-color: #ff4a148c;
-            position: absolute;
-            right: 10px;
-            top: 10px;
-         }
-      }
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+        }
+        button {
+           padding: 5vh;
+           background-color: red;
+           color: white;
+           margin: 2vh;
+           border: none;
+           border-radius: 2vh;
+        }
+        .personagens {
+           margin-top:9vh;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           flex-direction: column;
+        }
+        h1{
+           font-size:2vh;
+           display: flex;
+           justify-content: center;
+        }
     </style>
-    <script>
-    $(document).ready(function(){
-        var tempo = 15;
-        var tempoElement = document.getElementById("tempo");
-
-         // função
-        function atualizarTempo() {
-          tempoElement.innerHTML = tempo + " segundos";
-
-          if (tempo > 0) {
-            tempo --;
-            setTimeout(atualizarTempo, 1000); 
-          } else {
-             $("#blue-box").hide(1000);
-             $("#tela").hide(1000);
-             $("p").hide(1000);
-             $("header").hide(1000);
-             $("#score").show(1400);
-            document.getElementById("ponto").innerHTML = "Pontos: " + pontos;
-
-            // Verificar a pontuação e atualizar a mensagem de vitória
-            if (pontos > 31) {
-               document.getElementById("vitoria").innerHTML = "Usando hack né safado 😈";
-            } else if (pontos >= 20) {
-               document.getElementById("vitoria").innerHTML = "Parabéns, tá na média 📏";
-            } else if (pontos >= 10) {
-               document.getElementById("vitoria").innerHTML = "Dá pra melhorar em 🤓 ";
-            } else {
-               document.getElementById("vitoria").innerHTML = "Você é idiota 😂😂😂 ";
-            }
-          }
-         }
-         var show = true;
-         $("#tutorial").click(function(){
-            $("#tutorial2").show(100);
-            if(show){
-               $("#tutorial2").show(100);
-               show = false;
-            }else{
-                $("#tutorial2").hide(100);
-                show = true;
-            }
-            
-         });
-         $("#button").click(function(){
-            $("#tela").show(200);
-            $("#button").hide(10);
-            $("#tutorial").hide(10);
-            atualizarTempo();
-         });
-         $("#button2").click(function () {
-              tempo = 16;
-              pontos = 0;
-      document.getElementById("demo").innerHTML = "Pontos: " + pontos;
-              tempoElement.innerHTML = tempo + " segundos";
-              atualizarTempo();
-              
-              $("#blue-box").show(1000);
-              $("#tela").show(1000);
-              $("p").show(1000);
-              $("header").show(1000);
-              $("#score").hide(1400);
-          });
-            var pontos = 0;
-            $("#blue-box").click(function(){
-                var telaWidth = $("#tela").width() - $("#blue-box").width();
-                var telaHeight = $("#tela").height() - $("#blue-box").height();
-                
-                var randomLeft = Math.floor(Math.random() * telaWidth);
-                var randomTop = Math.floor(Math.random() * telaHeight);
-                pontos ++;
- document.getElementById("demo").innerHTML = "Pontos: " + pontos;
-
-                $("#blue-box").animate({
-                    left: randomLeft + "px",
-                    top: randomTop + "px"
-                });
-            });
-        });
-    </script>
 </head>
 <body>
-<header>
-   <h1>Faça o maximo de pontos em tempo</h1><br>
-   <h2 id="tutorial2" style="display: none">Tutorial: click no quadrado e ganhe pontos 🟦</h2>
-   <h3 align="center" id="tempo">15 segundos</h3>
-   <p id="demo">Pontos: 0</p>
-   
-   <h3 id="button">Jogar</h3>
-
-</header>
-   <h4 id="tutorial">Como jogar?</h4>
-   <div id="tela" style="display: none">
-      <div id="blue-box"></div>
-   </div>
-   <div id="score" style="display: none" >
-      <h1 align="center" id="vitoria">Parabéns</h1>
-      <h2 id="ponto"></h2>
-      <h3 id="button2">Jogar de novo</h3>
-   </div>
+<h1>Escolha seu personagem abaixo</h1>
+<div class="personagens">
+   <button>A</button>
+   <button>B</button>
+   <button>C</button>
+   <button>D</button>
+</div>
 </body>
-</html>
+</html></html>
