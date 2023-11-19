@@ -7,13 +7,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>jogo</title>
 <style>
+         .tremer {
+            animation: tremer 0.5s ease-in-out infinite;
+         }
+
+        @keyframes tremer {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-5px, 0); }
+            50% { transform: translate(5px, 0); }
+            75% { transform: translate(-5px, 0); }
+            100% { transform: translate(5px, 0); }
+         }
         body {
             font-family: Arial, sans-serif;
             margin: 0px;
         }
-        button {
+        .personagens button {
            padding: 5vh;
-           background-color: red;
+           background-color: #90EE90;
            color: white;
            margin: 2vh;
            border: none;
@@ -35,6 +46,15 @@
         .game {
            display: flex;
         }
+        .game button{
+           padding: 5vh;
+           background-color: #90EE90;
+           color: white;
+           margin: 2vh;
+           border: none;
+           border-radius: 2vh;
+           font-size: 5vh;
+        }
         h3 {
            margin: 2vh;
         }
@@ -53,7 +73,74 @@
         }
         .slot {
            border: 1px red solid;
+           background-color: pink;
+           padding: 20px;
+        }
+        .gameplay {
+           display: flex;
+           flex-direction: column;
+           justify-content: flex-end;
+           align-items: space-between;
+           height: 78vh;
+           width: 100%;
+        }
+        .luta {
+           display: flex;
+           justify-content: center;
+           align-content: center;
+           flex-direction: row;
+           height:100%;
+           border: 1px red solid;
+        }
+        .luta h1{
+           font-size: 8vh;
+           margin-top: 20vh;
+        }
+        .actions {
+           display: flex;
+           flex-direction: column;
+           justify-content: space-around;
+           align-content: space-around;
+           height: 15vh;
+           width:100%;
+         }
+        .top-buttons, .bottom-buttons {
+           display: flex;
+           justify-content: space-around;
+         }
+        .actions button {
            padding: 2vh;
+           border: none;
+           border-radius: 2vh;
+           font-weight: bold;
+        }
+        .atacar {
+           background-color: #FFB6C1;
+           transition: background-color 0.01s ease;
+         }
+        .atacar:active {
+           background-color: #ff2414;
+        }
+        .defender {
+           background-color: #ADD8E6;
+           transition: background-color 0.01s
+        }
+        .defender:active {
+           background-color: #04c5d6;
+        }
+        .atackForte {
+           background-color: #FF6347;
+           transition: background-color 0.01s
+        }
+        .atackForte:active{
+           background-color: #910f06;
+        }
+        .fugir {
+           background-color: #ede85a;
+           transition: background-color 0.01s
+        }
+        .fugir:active {
+           background-color: #f2eb18;
         }
     </style>
 
@@ -61,19 +148,28 @@
     $(document).ready(function(){
           $(".1").click(function(){
             $(".personagens,.escolha,.2,.3,.4").hide(60);
-            $(".game").show(110);
+            $(".game,.gameplay").show(110);
          });
          $(".2").click(function(){
             $(".personagens,.escolha,.1,.3,.4").hide(60);
-            $(".game").show(110);
+            $(".game,.gameplay").show(110);
          });
          $(".3").click(function(){
             $(".personagens,.escolha,.2,.1,.4").hide(60);
-            $(".game").show(110);
+            $(".game,.gameplay").show(110);
          });
          $(".4").click(function(){
-            $(".personagens,.escolha,.2,.1,.1").hide(60);
-            $(".game").show(110);
+            $(".personagens,.escolha,.2,.1,.3").hide(60);
+            $(".game,.gameplay").show(110);
+         });
+         $(".atacar").click(function(){
+            $(".1,.2,.3,.4,.inimigo").addClass("tremer");
+            $(".arma, .efeito").show(110);
+
+    setTimeout(function() {
+        $(".arma, .efeito").hide(110);
+        $(".1,.2,.3,.4, .inimigo").removeClass("tremer");
+          }, 1000);
          });
         });
     </script>
@@ -109,5 +205,28 @@
       </div>
    </div>
 </div>
+
+<div style="display:none;" class="gameplay">
+   <div class="luta">
+      <h1 class="1">👮</h1>
+      <h1 class="2">🤵</h1>
+      <h1 class="3">🧟</h1>
+      <h1 class="4">🧛</h1>
+      <h1 style="display:none;" class="arma">🤜</h1>
+      <h1 style="display:none;" class="efeito">💥</h1>
+      
+      <h1 class="inimigo">🐉</h1>
+   </div>
+   <div class="actions">
+    <div class="top-buttons">
+        <button class="atacar">ATACAR 🗡️</button>
+        <button class="defender">DEFENDER 🛡️</button>
+    </div>
+    <div class="bottom-buttons">
+        <button class="atackForte">ATACAR FORTE 🦴</button>
+        <button class="fugir">FUGIR 🐔</button>
+    </div>
+   </div>
+</div>
 </body>
-</html>
+       </html>
