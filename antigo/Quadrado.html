@@ -196,7 +196,7 @@
    <button class="4">🧛</button>
    <div class="ajusta">
       <div class="status">
-         <h3>hp: 100</h3>
+         <h3 id="vida">hp: 100</h3>
          <h3>mp: 20</h3>
       </div>
       <div class="inventario">
@@ -240,10 +240,13 @@
 </div>
 
 <script type="text/javascript">
-let vidaMaxima = [3, 10, 25, 50, 100, 99];
+
+let vidaMaxima = [3, 10, 25, 50, 100, 69];
 let inimigoAtual = 0;
-let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","😊"];
+let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","ki pa tu 🖕🏻😊"];
 let armas = ["🔫","🥖","🏹","🪓","⚡","📢"];
+let vida = 100;
+
 function clicar() {
   let vidaInimigo = document.getElementById(`sinimigo`);
   let inimigo = document.getElementById(`inimigo`);
@@ -251,7 +254,8 @@ function clicar() {
   let valorAtual = parseInt(vidaInimigo.innerText);
 
   if (valorAtual > 0) {
-    vidaInimigo.innerText = (valorAtual - 99).toString();
+    vidaInimigo.innerText = (valorAtual -1- inimigoAtual * 2).toString();
+    levarDano(1);
   } else if (inimigoAtual < vidaMaxima.length - 1) {
     inimigoAtual += 1;
     valorAtual = vidaMaxima[inimigoAtual];
@@ -275,6 +279,11 @@ function atualizarInventario() {
   slotAtual.appendChild(novaArma);
 }
 
+function levarDano(dano){
+   vida -= dano + inimigoAtual * 2;
+   document.getElementById('vida').innerText = 'hp: ' + vida;
+}
+
 function end(){
    let player = document.getElementById('player').innerHTML = ""
      inimigo = document.getElementById('inimigo');
@@ -282,17 +291,17 @@ inimigo.innerHTML = "Parabéns jogo finalizado.🏆";
 $(".actions, .status-inimigo,.game").hide(10);
 }
 
-$(".atacar").click(function () {
-  $(".1, .2, .3, .4, .inimigo").addClass("tremer");
-  $(".arma, .efeito").show(10);
-  
-  clicar();
+         $(".atacar").click(function () {
+         $(".1, .2, .3, .4, .inimigo").addClass("tremer");
+         $(".arma, .efeito").show(10);
+         
+         clicar();
 
-  setTimeout(function () {
-    $(".arma, .efeito").hide(110);
-    $(".1, .2, .3, .4, .inimigo").removeClass("tremer");
-  }, 1000);
-});
+         setTimeout(function () {
+            $(".arma, .efeito").hide(110);
+            $(".1, .2, .3, .4, .inimigo").removeClass("tremer");
+         }, 1000);
+         });
          $(".atackForte").click(function(){
             $(".1,.2,.3,.4,.inimigo").addClass("forte");
             $(".arma, .efeito").show(110);
