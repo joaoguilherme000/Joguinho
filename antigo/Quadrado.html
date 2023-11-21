@@ -222,11 +222,7 @@
       <h1 style="display:none;" class="arma">🤜</h1>
       <h1 style="display:none;" class="efeito">💥</h1>
       
-      <h1 class="inimigo">💩</h1>
-      <h1 style="display:none;" class="inimigo2">🐀</h1>
-      <h1 style="display:none;" class="inimigo3">🦍</h1>
-      <h1 style="display:none;" class="inimigo4">🗿</h1>
-      <h1 style="display:none;" class="inimigo5">🐉</h1>
+      <h1 id="inimigo" class="inimigo">💩</h1>
    </div>
    <div class="status-inimigo">
       <h3>vida do inimigo: </h3>
@@ -245,11 +241,12 @@
 </div>
 
 <script type="text/javascript">
-let vidaMaxima = [3, 10, 25, 50, 100];
+let vidaMaxima = [3, 10, 25, 50, 100, 69];
 let inimigoAtual = 0;
-
+let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","ki pa tu 🖕🏻😊"];
 function clicar() {
   let vidaInimigo = document.getElementById(`sinimigo`);
+  let inimigo = document.getElementById(`inimigo`);
   let valorAtual = parseInt(vidaInimigo.innerText);
 
   if (valorAtual > 0) {
@@ -258,6 +255,8 @@ function clicar() {
     inimigoAtual += 1;
     valorAtual = vidaMaxima[inimigoAtual];
     vidaInimigo.innerText = valorAtual.toString();
+    inimigo = document.getElementById('inimigo');
+inimigo.innerHTML = inimigoEmoji[inimigoAtual];
   }
 }
 
