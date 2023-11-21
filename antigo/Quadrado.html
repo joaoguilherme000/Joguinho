@@ -82,10 +82,10 @@
            display: flex;
            flex-direction: row;
         }
-        .slot {
+        .slot1, .slot2, .slot3, .slot4, .slot5 {
            border: 1px red solid;
            background-color: pink;
-           padding: 20px;
+           padding: 1vh;
         }
         .gameplay {
            display: flex;
@@ -101,7 +101,6 @@
            align-content: center;
            flex-direction: row;
            height:100%;
-           border: 1px red solid;
         }
         .luta h1{
            font-size: 8vh;
@@ -203,11 +202,11 @@
       <div class="inventario">
          <h3>inventário</h3>
          <div class="slots">
-            <div class="slot"></div>
-            <div class="slot"></div>
-            <div class="slot"></div>
-            <div class="slot"></div>
-            <div class="slot"></div>
+            <div class="slot1"></div>
+            <div class="slot2"></div>
+            <div class="slot3"></div>
+            <div class="slot4"></div>
+            <div class="slot5"></div>
          </div>
       </div>
    </div>
@@ -215,11 +214,11 @@
 
 <div style="display:none;" class="gameplay">
    <div class="luta">
-      <h1 class="1">👮</h1>
-      <h1 class="2">🤵</h1>
-      <h1 class="3">🧟</h1>
-      <h1 class="4">🧛</h1>
-      <h1 style="display:none;" class="arma">🤜</h1>
+      <h1 id="player" class="1">👮</h1>
+      <h1 id="player" class="2">🤵</h1>
+      <h1 id="player" class="3">🧟</h1>
+      <h1 id="player" class="4">🧛</h1>
+      <h1 style="display:none;" id="arma" class="arma">🤜</h1>
       <h1 style="display:none;" class="efeito">💥</h1>
       
       <h1 id="inimigo" class="inimigo">💩</h1>
@@ -241,23 +240,46 @@
 </div>
 
 <script type="text/javascript">
-let vidaMaxima = [3, 10, 25, 50, 100, 69];
+let vidaMaxima = [3, 10, 25, 50, 100, 99];
 let inimigoAtual = 0;
-let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","ki pa tu 🖕🏻😊"];
+let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","😊"];
+let armas = ["🔫","🥖","🏹","🪓","⚡","📢"];
 function clicar() {
   let vidaInimigo = document.getElementById(`sinimigo`);
   let inimigo = document.getElementById(`inimigo`);
+  let arma = document.getElementById(`arma`);
   let valorAtual = parseInt(vidaInimigo.innerText);
 
   if (valorAtual > 0) {
-    vidaInimigo.innerText = (valorAtual - 1).toString();
+    vidaInimigo.innerText = (valorAtual - 99).toString();
   } else if (inimigoAtual < vidaMaxima.length - 1) {
     inimigoAtual += 1;
     valorAtual = vidaMaxima[inimigoAtual];
     vidaInimigo.innerText = valorAtual.toString();
     inimigo = document.getElementById('inimigo');
 inimigo.innerHTML = inimigoEmoji[inimigoAtual];
+atualizarInventario();
   }
+  else {
+     end();
+  }
+}
+
+function atualizarInventario() {
+   arma = document.getElementById('arma'); arma.innerHTML = armas[inimigoAtual];
+  let inventario = document.querySelector('.slots');
+  let slotAtual = document.querySelector(`.slot${inimigoAtual}`);
+  let novaArma = document.createElement('div');
+  novaArma.innerText = armas[inimigoAtual];
+  slotAtual.innerHTML = '';
+  slotAtual.appendChild(novaArma);
+}
+
+function end(){
+   let player = document.getElementById('player').innerHTML = ""
+     inimigo = document.getElementById('inimigo');
+inimigo.innerHTML = "Parabéns jogo finalizado.🏆";
+$(".actions, .status-inimigo,.game").hide(10);
 }
 
 $(".atacar").click(function () {
