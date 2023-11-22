@@ -248,7 +248,7 @@ let armas =        ["🔫","🥖","🏹","⛏","🌬","📢"];
 let efeitos =      ["nada","💢","🩸","💎","",""];
 let vida = 100;
 
-function clicar() {
+function atacar() {
   let vidaInimigo = document.getElementById(`sinimigo`);
   let inimigo = document.getElementById(`inimigo`);
   let arma = document.getElementById(`arma`);
@@ -262,7 +262,33 @@ function clicar() {
       inimigoAtual += 1;
       valorAtual = vidaMaxima[inimigoAtual];
       vidaInimigo.innerText = valorAtual.toString();
-      inimigo = document.getElementById('inimigo');
+      inimigo.innerHTML = inimigoEmoji[inimigoAtual];
+      efeito.innerText =  efeitos[inimigoAtual];
+      atualizarInventario();
+   }
+   else {
+     end();
+   }
+
+   if (vida <= 0){
+      morreu();
+   }
+}
+
+function atacarForte() {
+  let vidaInimigo = document.getElementById(`sinimigo`);
+  let inimigo = document.getElementById(`inimigo`);
+  let arma = document.getElementById(`arma`);
+  let efeito = document.getElementById(`efeito`);
+  let valorAtual = parseInt(vidaInimigo.innerText);
+
+   if (valorAtual > 0) {
+      vidaInimigo.innerText = (valorAtual - 5).toString();
+      levarDano(1);
+   } else if (inimigoAtual < vidaMaxima.length - 1) {
+      inimigoAtual += 1;
+      valorAtual = vidaMaxima[inimigoAtual];
+      vidaInimigo.innerText = valorAtual.toString();
       inimigo.innerHTML = inimigoEmoji[inimigoAtual];
       efeito.innerText =  efeitos[inimigoAtual];
       atualizarInventario();
@@ -308,7 +334,7 @@ function end(){
       $(".1, .2, .3, .4, .inimigo").addClass("tremer");
       $(".arma, .efeito").show(10);
 
-      clicar();
+      atacar();
 
       setTimeout(function () {
          $(".arma, .efeito").hide(110);
@@ -320,7 +346,7 @@ function end(){
          $(".1,.2,.3,.4,.inimigo").addClass("forte");
          $(".arma, .efeito").show(110);
          
-      clicar();
+      atacarForte();
 
       setTimeout(function() {
          $(".arma, .efeito").hide(110);
