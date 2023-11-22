@@ -219,7 +219,7 @@
       <h1 id="player" class="3">🧟</h1>
       <h1 id="player" class="4">🧛</h1>
       <h1 style="display:none;" id="arma" class="arma">🤜</h1>
-      <h1 style="display:none;" class="efeito">💥</h1>
+      <h1 style="display:none;" id="efeito" class="efeito">💥</h1>
       
       <h1 id="inimigo" class="inimigo">💩</h1>
    </div>
@@ -244,25 +244,28 @@
 let vidaMaxima = [3, 10, 25, 50, 100, 69];
 let inimigoAtual = 0;
 let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","ki pa tu 🖕🏻😊"];
-let armas = ["🔫","🥖","🏹","🪓","⚡","📢"];
+let armas =        ["🔫","🥖","🏹","⛏","🌬","📢"];
+let efeitos =       ["nada","💢","🩸","💎","",""];
 let vida = 100;
 
 function clicar() {
   let vidaInimigo = document.getElementById(`sinimigo`);
   let inimigo = document.getElementById(`inimigo`);
   let arma = document.getElementById(`arma`);
+  let efeito = document.getElementById(`efeito`);
   let valorAtual = parseInt(vidaInimigo.innerText);
 
   if (valorAtual > 0) {
-    vidaInimigo.innerText = (valorAtual -1- inimigoAtual * 2).toString();
-    levarDano(1);
+   vidaInimigo.innerText = (valorAtual -1- inimigoAtual * 2).toString();
+   levarDano(1);
   } else if (inimigoAtual < vidaMaxima.length - 1) {
-    inimigoAtual += 1;
-    valorAtual = vidaMaxima[inimigoAtual];
-    vidaInimigo.innerText = valorAtual.toString();
-    inimigo = document.getElementById('inimigo');
-inimigo.innerHTML = inimigoEmoji[inimigoAtual];
-atualizarInventario();
+   inimigoAtual += 1;
+   valorAtual = vidaMaxima[inimigoAtual];
+   vidaInimigo.innerText = valorAtual.toString();
+   inimigo = document.getElementById('inimigo');
+   inimigo.innerHTML = inimigoEmoji[inimigoAtual];
+   efeito.innerText =  efeitos[inimigoAtual];
+   atualizarInventario();
   }
   else {
      end();
@@ -271,12 +274,12 @@ atualizarInventario();
 
 function atualizarInventario() {
    arma = document.getElementById('arma'); arma.innerHTML = armas[inimigoAtual];
-  let inventario = document.querySelector('.slots');
-  let slotAtual = document.querySelector(`.slot${inimigoAtual}`);
-  let novaArma = document.createElement('div');
-  novaArma.innerText = armas[inimigoAtual];
-  slotAtual.innerHTML = '';
-  slotAtual.appendChild(novaArma);
+   let inventario = document.querySelector('.slots');
+   let slotAtual = document.querySelector(`.slot${inimigoAtual}`);
+   let novaArma = document.createElement('div');
+   novaArma.innerText = armas[inimigoAtual];
+   slotAtual.innerHTML = '';
+   slotAtual.appendChild(novaArma);
 }
 
 function levarDano(dano){
@@ -286,34 +289,35 @@ function levarDano(dano){
 
 function end(){
    let player = document.getElementById('player').innerHTML = ""
-     inimigo = document.getElementById('inimigo');
-inimigo.innerHTML = "Parabéns jogo finalizado.🏆";
-$(".actions, .status-inimigo,.game").hide(10);
+   inimigo = document.getElementById('inimigo');
+   inimigo.innerHTML = "Parabéns jogo finalizado.🏆";
+   $(".actions, .status-inimigo,.game").hide(10);
 }
 
-         $(".atacar").click(function () {
-         $(".1, .2, .3, .4, .inimigo").addClass("tremer");
-         $(".arma, .efeito").show(10);
-         
-         clicar();
+      $(".atacar").click(function () {
+      $(".1, .2, .3, .4, .inimigo").addClass("tremer");
+      $(".arma, .efeito").show(10);
 
-         setTimeout(function () {
-            $(".arma, .efeito").hide(110);
-            $(".1, .2, .3, .4, .inimigo").removeClass("tremer");
-         }, 1000);
-         });
-         $(".atackForte").click(function(){
-            $(".1,.2,.3,.4,.inimigo").addClass("forte");
-            $(".arma, .efeito").show(110);
-            
-            clicar();
+      clicar();
 
-    setTimeout(function() {
-        $(".arma, .efeito").hide(110);
-        $(".1,.2,.3,.4, .inimigo").removeClass("forte");
-          }, 1000);
-         });
+      setTimeout(function () {
+         $(".arma, .efeito").hide(110);
+         $(".1, .2, .3, .4, .inimigo").removeClass("tremer");
+      }, 1000);
+      });
+
+      $(".atackForte").click(function(){
+         $(".1,.2,.3,.4,.inimigo").addClass("forte");
+         $(".arma, .efeito").show(110);
          
+      clicar();
+
+      setTimeout(function() {
+         $(".arma, .efeito").hide(110);
+         $(".1,.2,.3,.4, .inimigo").removeClass("forte");
+            }, 1000);
+            });
+
     </script>
 </body>
 </html>
