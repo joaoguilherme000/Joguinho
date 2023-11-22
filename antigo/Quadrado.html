@@ -245,7 +245,7 @@ let vidaMaxima = [3, 10, 25, 50, 100, 69];
 let inimigoAtual = 0;
 let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","ki pa tu 🖕🏻😊"];
 let armas =        ["🔫","🥖","🏹","⛏","🌬","📢"];
-let efeitos =       ["nada","💢","🩸","💎","",""];
+let efeitos =      ["nada","💢","🩸","💎","",""];
 let vida = 100;
 
 function clicar() {
@@ -255,21 +255,31 @@ function clicar() {
   let efeito = document.getElementById(`efeito`);
   let valorAtual = parseInt(vidaInimigo.innerText);
 
-  if (valorAtual > 0) {
-   vidaInimigo.innerText = (valorAtual -1- inimigoAtual * 2).toString();
-   levarDano(1);
-  } else if (inimigoAtual < vidaMaxima.length - 1) {
-   inimigoAtual += 1;
-   valorAtual = vidaMaxima[inimigoAtual];
-   vidaInimigo.innerText = valorAtual.toString();
-   inimigo = document.getElementById('inimigo');
-   inimigo.innerHTML = inimigoEmoji[inimigoAtual];
-   efeito.innerText =  efeitos[inimigoAtual];
-   atualizarInventario();
-  }
-  else {
+   if (valorAtual > 0) {
+      vidaInimigo.innerText = (valorAtual -1- inimigoAtual * 2).toString();
+      levarDano(1);
+   } else if (inimigoAtual < vidaMaxima.length - 1) {
+      inimigoAtual += 1;
+      valorAtual = vidaMaxima[inimigoAtual];
+      vidaInimigo.innerText = valorAtual.toString();
+      inimigo = document.getElementById('inimigo');
+      inimigo.innerHTML = inimigoEmoji[inimigoAtual];
+      efeito.innerText =  efeitos[inimigoAtual];
+      atualizarInventario();
+   }
+   else {
      end();
-  }
+   }
+
+   if (vida <= 0){
+      morreu();
+   }
+}
+
+function morreu(){
+   let player = document.getElementById('player').innerHTML = ""
+   inimigo.innerHTML = "VOCÊ MORREU. 😢";
+   $(".actions, .status-inimigo,.game").hide(10);
 }
 
 function atualizarInventario() {
