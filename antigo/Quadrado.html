@@ -197,7 +197,7 @@
    <div class="ajusta">
       <div class="status">
          <h3 id="vida">hp: 100</h3>
-         <h3>mp: 20</h3>
+         <h3 id="mana">mp: 20</h3>
       </div>
       <div class="inventario">
          <h3>inventário</h3>
@@ -226,6 +226,7 @@
    <div class="status-inimigo">
       <h3>vida do inimigo: </h3>
       <h3 id="sinimigo" class="sinimigo">3</h3>
+      <h3 id="defesa" style="display: none;"></h3>
    </div>
    <div class="actions">
     <div class="top-buttons">
@@ -247,6 +248,7 @@ let inimigoEmoji = ["💩","🐀","🦍","🗿","🐉","ki pa tu 🖕🏻😊"];
 let armas =        ["🔫","🥖","🏹","⛏","🌬","📢"];
 let efeitos =      ["nada","💢","🩸","💎","",""];
 let vida = 100;
+let mana = 20;
 
 function atacar() {
   let vidaInimigo = document.getElementById(`sinimigo`);
@@ -285,6 +287,7 @@ function atacarForte() {
    if (valorAtual > 0) {
       vidaInimigo.innerText = (valorAtual - 5).toString();
       levarDano(1);
+      especial();
    } else if (inimigoAtual < vidaMaxima.length - 1) {
       inimigoAtual += 1;
       valorAtual = vidaMaxima[inimigoAtual];
@@ -292,20 +295,13 @@ function atacarForte() {
       inimigo.innerHTML = inimigoEmoji[inimigoAtual];
       efeito.innerText =  efeitos[inimigoAtual];
       atualizarInventario();
-   }
-   else {
+   } else {
      end();
    }
 
    if (vida <= 0){
       morreu();
    }
-}
-
-function morreu(){
-   let player = document.getElementById('player').innerHTML = ""
-   inimigo.innerHTML = "VOCÊ MORREU. 😢";
-   $(".actions, .status-inimigo,.game").hide(10);
 }
 
 function atualizarInventario() {
@@ -323,6 +319,26 @@ function levarDano(dano){
    document.getElementById('vida').innerText = 'hp: ' + vida;
 }
 
+function defender() {
+  let danoReduzido = 2;
+  levarDano(danoReduzido);
+
+  $("#defesa").text("Você defendeu o ataque!");
+
+  mana += 2;
+   document.getElementById('mana').innerText = 'mp: ' + mana;
+}
+
+function especial(){
+   if (mana >= 5){
+      mana -= 5;
+      document.getElementById('mana').innerText = 'mp: ' + mana;
+   } else {
+      // Tome alguma ação se a mana for insuficiente
+      console.log("Mana insuficiente para habilidade especial");
+   }
+}
+
 function end(){
    let player = document.getElementById('player').innerHTML = ""
    inimigo = document.getElementById('inimigo');
@@ -330,30 +346,56 @@ function end(){
    $(".actions, .status-inimigo,.game").hide(10);
 }
 
-      $(".atacar").click(function () {
-      $(".1, .2, .3, .4, .inimigo").addClass("tremer");
-      $(".arma, .efeito").show(10);
+function morreu(){
+   let player = document.getElementById('player').innerHTML = ""
+   inimigo.innerHTML = "VOCÊ MORREU. 😢";
+   $(".actions, .status-inimigo,.game").hide(10);
+   $("body").css("background-color", "black");
+   $("p,h1,h3").css("color", "white");
+}
 
-      atacar();
+   $(".atacar").click(function () {
+   $(".1, .2, .3, .4, .inimigo").addClass("tremer");
+   $(".arma, .efeito").show(10);
 
-      setTimeout(function () {
-         $(".arma, .efeito").hide(110);
-         $(".1, .2, .3, .4, .inimigo").removeClass("tremer");
-      }, 1000);
-      });
+   atacar();
 
-      $(".atackForte").click(function(){
-         $(".1,.2,.3,.4,.inimigo").addClass("forte");
-         $(".arma, .efeito").show(110);
-         
+   setTimeout(function () {
+      $(".arma, .efeito").hide(110);
+      $(".1, .2, .3, .4, .inimigo").removeClass("tremer");
+   }, 1000);
+   });
+
+   $(".atackForte").click(function(){
+      // Adicione a verificação aqui antes de permitir o ataque forte
+      if (mana >= 5) {
+      $(".1,.2,.3,.4,.inimigo").addClass("forte");
+      $(".arma, .efeito").show(110);
+
       atacarForte();
 
       setTimeout(function() {
          $(".arma, .efeito").hide(110);
          $(".1,.2,.3,.4, .inimigo").removeClass("forte");
-            }, 1000);
-            });
+      }, 1000);
+      } else {
+         // Exiba uma mensagem ou tome alguma ação se a mana for insuficiente
+         console.log("Mana insuficiente para ataque forte");
+      }
+   });
 
+   
+   $(".defender").click(function () {
+   $(".1, .2, .3, .4").addClass("tremer");
+   $("#defesa").show(110);
+
+   defender();
+
+   setTimeout(function () {
+      $(".1, .2, .3, .4").removeClass("tremer");
+      $("#defesa").text(""); 
+   }, 1000);
+   });
     </script>
 </body>
 </html>
