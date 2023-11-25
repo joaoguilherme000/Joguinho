@@ -285,7 +285,7 @@ function atacarForte() {
   let valorAtual = parseInt(vidaInimigo.innerText);
 
    if (valorAtual > 0) {
-      vidaInimigo.innerText = (valorAtual - 5).toString();
+      vidaInimigo.innerText = (valorAtual - 5- inimigoAtual * 2).toString();
       levarDano(1);
       especial();
    } else if (inimigoAtual < vidaMaxima.length - 1) {
@@ -325,7 +325,7 @@ function defender() {
 
   $("#defesa").text("Você defendeu o ataque!");
 
-  mana += 2;
+  mana += 4;
    document.getElementById('mana').innerText = 'mp: ' + mana;
 }
 
@@ -334,7 +334,6 @@ function especial(){
       mana -= 5;
       document.getElementById('mana').innerText = 'mp: ' + mana;
    } else {
-      // Tome alguma ação se a mana for insuficiente
       console.log("Mana insuficiente para habilidade especial");
    }
 }
@@ -367,7 +366,6 @@ function morreu(){
    });
 
    $(".atackForte").click(function(){
-      // Adicione a verificação aqui antes de permitir o ataque forte
       if (mana >= 5) {
       $(".1,.2,.3,.4,.inimigo").addClass("forte");
       $(".arma, .efeito").show(110);
@@ -379,8 +377,8 @@ function morreu(){
          $(".1,.2,.3,.4, .inimigo").removeClass("forte");
       }, 1000);
       } else {
-         // Exiba uma mensagem ou tome alguma ação se a mana for insuficiente
          console.log("Mana insuficiente para ataque forte");
+         $("#defesa").text("Sem mana");
       }
    });
 
@@ -395,6 +393,22 @@ function morreu(){
       $(".1, .2, .3, .4").removeClass("tremer");
       $("#defesa").text(""); 
    }, 1000);
+   });
+   
+   $(".fugir").click(function () {
+   let player = document.getElementById('player').innerHTML = ""
+   inimigo.innerHTML = "Seu galinha 🐔";
+   $(".actions, .status-inimigo,.game").hide(10);
+   $("body").css("background-color", "black");
+   $("p,h1,h3").css("color", "white");
+   inimigoAtual += 1;
+   valorAtual = vidaMaxima[inimigoAtual];
+
+   setTimeout(function () {
+   $(".actions, .status-inimigo,.game").show(10);
+   $("body").css("background-color", "white");
+   $("p,h1,h3").css("color", "black");
+   }, 3000);
    });
     </script>
 </body>
